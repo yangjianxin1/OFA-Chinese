@@ -18,7 +18,7 @@ from component.datacollator import CaptionCollator
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_args_file", type=str, default='train_args/train_ofa-bak.json', help="")
+    parser.add_argument("--train_args_file", type=str, default='train_args/train_ofa.json', help="")
     args = parser.parse_args()
     train_args_file = args.train_args_file
     # 读取参数配置
