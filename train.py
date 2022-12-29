@@ -8,7 +8,7 @@ from transformers import (
 )
 from loguru import logger
 from component.dataset import CaptionDataset
-from component.argument import CLIPArguments
+from component.argument import CaptionArguments
 import argparse
 import os
 import json
@@ -22,7 +22,7 @@ def main():
     args = parser.parse_args()
     train_args_file = args.train_args_file
     # 读取参数配置
-    parser = HfArgumentParser((CLIPArguments, TrainingArguments))
+    parser = HfArgumentParser((CaptionArguments, TrainingArguments))
     args, training_args = parser.parse_json_file(json_file=train_args_file)
     # 创建输出目录
     if not os.path.exists(training_args.output_dir):
