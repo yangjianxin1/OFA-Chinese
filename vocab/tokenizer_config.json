@@ -1,0 +1,17 @@
+{
+  "bos_token": "<s>",
+  "cls_token": "<s>",
+  "do_basic_tokenize": true,
+  "do_lower_case": true,
+  "eos_token": "</s>",
+  "mask_token": "<mask>",
+  "name_or_path": "",
+  "never_split": null,
+  "pad_token": "<pad>",
+  "sep_token": "</s>",
+  "special_tokens_map_file": null,
+  "strip_accents": null,
+  "tokenize_chinese_chars": true,
+  "tokenizer_class": "BertTokenizer",
+  "unk_token": "<unk>"
+}
