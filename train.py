@@ -18,7 +18,7 @@ from component.datacollator import CaptionCollator
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_args_file", type=str, default='train_args/train_ofa.json', help="")
+    parser.add_argument("--train_args_file", type=str, default='train_args/train_ofa-bak.json', help="")
     args = parser.parse_args()
     train_args_file = args.train_args_file
     # 读取参数配置
@@ -37,6 +37,10 @@ def main():
     # 初始化模型
     tokenizer = BertTokenizerFast.from_pretrained(args.model_name_or_path)
     model = OFAModelForCaption.from_pretrained(args.model_name_or_path)
+    # 是否将encoder的权重冻结，仅对decoder进行finetune
+    if args.freeze_encoder:
+        for name, param in model.encoder.named_parameters():
+            param.requires_grad = False
     # 加载数据集
     train_dataset = CaptionDataset(args.train_caption_file, args.train_image_file)
     # 初始化collator
