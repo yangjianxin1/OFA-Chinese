@@ -1,0 +1,34 @@
+{
+    "output_dir": "output/ofa",
+    "model_name_or_path": "",
+    "train_caption_file": "./data/train_caption.jsonl",
+    "train_image_file": "./data/train_image.tsv",
+    "test_caption_file": null,
+    "test_image_file": null,
+    "num_train_epochs": 20,
+    "max_steps": -1,
+    "per_device_train_batch_size": 128,
+    "per_device_eval_batch_size": 256,
+    "learning_rate": 5e-5,
+    "max_seq_length": 100,
+    "logging_steps": 500,
+    "save_steps": 500,
+    "save_total_limit": 3,
+    "lr_scheduler_type": "cosine",
+    "warmup_steps": 3000,
+    "warmup_ratio": 0,
+
+    "gradient_accumulation_steps": 1,
+    "optim": "adamw_torch",
+    "seed": 42,
+    "fp16": true,
+    "no_cuda": false,
+    "dataloader_num_workers": 30,
+    "save_strategy": "steps",
+    "weight_decay": 0,
+    "max_grad_norm": 1.0,
+    "remove_unused_columns": false
+}
+
+
+
