@@ -6,11 +6,13 @@ import base64
 from io import BytesIO
 from PIL import Image
 from torchvision import transforms
+from loguru import logger
 
 
 class CaptionDataset(Dataset):
 
     def __init__(self, caption_file, image_file):
+        logger.info('loading data from:{} and {}'.format(caption_file, image_file))
         # 读取每个图片的内容
         image_id2content = {}
         with open(image_file, 'r', encoding='utf8') as f:
@@ -31,7 +33,7 @@ class CaptionDataset(Dataset):
                     data = {'caption': caption, 'image_base64': image_id2content[image_id]}
                     data_list.append(data)
 
-        print('len of data:{}'.format(len(data_list)))
+        logger.info('len of data:{}'.format(len(data_list)))
         self.data_list = data_list
 
         mean, std = [0.5, 0.5, 0.5], [0.5, 0.5, 0.5]
