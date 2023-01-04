@@ -30,7 +30,7 @@ class CaptionDataset(Dataset):
                 image_id = line['image_id']
                 captions = line['text']
                 for caption in captions:
-                    data = {'caption': caption, 'image_base64': image_id2content[image_id]}
+                    data = {'caption': caption, 'image_base64': image_id2content[image_id], 'image_id': image_id}
                     data_list.append(data)
 
         logger.info('len of data:{}'.format(len(data_list)))
@@ -53,10 +53,17 @@ class CaptionDataset(Dataset):
         row = self.data_list[index]
         caption = row['caption'].strip()
         image_base64 = row['image_base64']
+        image_id = row['image_id']
 
-        image = Image.open(BytesIO(base64.urlsafe_b64decode(image_base64)))
-        # 处理图片
-        patch_image = self.patch_resize_transform(image).unsqueeze(0)
+        # 加载图片，并进行预处理
+        try:
+            image = Image.open(BytesIO(base64.urlsafe_b64decode(image_base64)))
+            patch_image = self.patch_resize_transform(image).unsqueeze(0)
+        except Exception as e:
+            # 图片加载失败
+            logger.info('open image error, image_id: {}'.format(image_id))
+            logger.info(e)
+            patch_image = None
 
         data = {'patch_image': patch_image, 'caption': caption}
         return data
