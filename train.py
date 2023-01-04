@@ -18,7 +18,7 @@ from component.datacollator import CaptionCollator
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_args_file", type=str, default='train_args/train_ofa-bak.json', help="")
+    parser.add_argument("--train_args_file", type=str, default='train_args/train_ofa.json', help="")
     args = parser.parse_args()
     train_args_file = args.train_args_file
     # 读取参数配置
@@ -40,8 +40,12 @@ def main():
     # 是否将encoder的权重冻结，仅对decoder进行finetune
     if args.freeze_encoder:
         for name, param in model.encoder.named_parameters():
-            # encoder与decoder共享词表，但是想对词表权重进行继续训练，所以不将词表权重进行冻结
-            if 'embed_tokens' not in name:
+            # encoder与decoder共享词向量
+            # 不冻结词向量权重，对词向量权重进行继续训练
+            if 'embed_tokens' in name and not args.freeze_word_embed:
+                param.requires_grad = True
+            # 冻结权重
+            else:
                 param.requires_grad = False
     total = sum(p.numel() for p in model.parameters() if p.requires_grad)
     logger.info("Total training params: %.2fM" % (total / 1e6))

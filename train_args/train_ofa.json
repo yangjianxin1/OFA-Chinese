@@ -6,6 +6,7 @@
     "test_caption_file": null,
     "test_image_file": null,
     "freeze_encoder": true,
+    "freeze_word_embed": true,
     "num_train_epochs": 20,
     "max_steps": -1,
     "per_device_train_batch_size": 128,
