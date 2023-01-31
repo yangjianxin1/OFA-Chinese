@@ -75,8 +75,8 @@ caption数据，jsonl格式：
 batch size=128，开启混合精度训练，warmup step为3000步，学习率为5e-5，使用cosine衰减策略，训练10个epoch，大约42500个step，最终训练loss降到0.47左右。
 
 由于encoder与decoder共享词向量权重，笔者还分别尝试了冻结与不冻结词向量两种训练方式，两者的训练loss的变化趋势如下图所示。可以看到，训练时不冻结词向量权重，模型的收敛速度提升非常显著，
-但相应地也需要更多显存。
-![model](images/train_loss.png)
+但相应地也需要更多显存。如果显存不足，在训练时可以冻结词向量，将freeze_word_embed设为true即可。
+![loss](images/train_loss.png)
 
 
 
@@ -95,7 +95,7 @@ from PIL import Image
 from transformers import BertTokenizerFast
 
 model_name_or_path = 'YeungNLP/ofa-cn-base-muge-caption'
-image_file = './images/test/'
+image_file = './images/test/lipstick.jpg'
 # 加载预训练模型权重
 model = OFAModelForCaption.from_pretrained(model_name_or_path)
 tokenizer = BertTokenizerFast.from_pretrained(model_name_or_path)
@@ -161,7 +161,7 @@ CUDA_VISIBLE_DEVICES=0 nohup python train.py --train_args_file train_args/train_
 
 
 ## 效果展示
-下列测试图片是从电商网站中随机获取的，并且分别使用不同的模型权重，进行生成。
+下列测试图片均为从电商网站中随机下载的，并且测试了不同模型权重的生成效果。
 
 | 图片                                          | caption            |
 |---------------------------------------------|--------------------|
@@ -203,7 +203,7 @@ CUDA_VISIBLE_DEVICES=0 nohup python train.py --train_args_file train_args/train_
 ### tokenizer细节
 经过阅读分析OFA官方代码，笔者得到了以下几个结论：
 - transformers版的官方代码中，实现了OFATokenizer，该tokenizer本质是一个bpe，并且仅支持处理英文。
-- 对于中文模型，官方使用bert tokenizer，并且在bert的原始词表的基础上添加了若干个特殊token，包括<s>、<pad>、</s>、<unk>、<mask>、<code_0>~<code_8191>、<bin_0>~<bin_999>等。
+- 对于中文模型，官方使用bert tokenizer，并且在bert的原始词表的基础上添加了若干个特殊token，包括\<s>、\<pad>、\</s>、\<unk>、\<mask>、\<code_0>~\<code_8191>、\<bin_0>~\<bin_999>等。
 
 经过处理，笔者最终得到了一份有效的中文词表配置，存放在vocab目录下，直接使用BertTokenizer加载即可。
 
