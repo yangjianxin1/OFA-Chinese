@@ -15,7 +15,7 @@ Image genaration、Language Understanding等等。
 
 在OFA官方代码库中，同时实现了fairseq和transformers两套框架的模型结构，并且官方同时开源了中文和英文的模型权重。基于下列原因，笔者开发了本项目：
 - 由于笔者对transformers框架更熟悉，所以希望基于transformers框架，使用域内数据对OFA模型进行finetune，但OFA的中文预训练权重只有fairseq版本，没有transformers版本。
-- 中文OFA预训练权重只有fairseq版本，如何实现fairseq到transformers的权重转换，从而使得下游任务可以基于transformers框架的中文预训练权重进行finetune。
+- 中文OFA预训练权重只有fairseq版本，如何将官方fairseq版本的预训练权重转换为transformers权重，从而使得下游任务可以基于transformers框架的中文预训练权重进行finetune。
 - 官方代码库中，由于需要兼容各种实验配置，所以代码也比较冗余，使用起来不方便。笔者希望能够将核心逻辑剥离出来，应用于自身任务，实现域内数据进行finetune。
 
 ### 主要工作
@@ -54,7 +54,7 @@ Image genaration、Language Understanding等等。
 
 
 ### 数据集介绍
-笔者使用MUGE数据集中的image caption数据，将该数据集中的训练集与验证集进行合并，作为本项目的训练集。其中图片共5.5w张，每张图片包含10个caption，最终构成55w个图文对训练数据。
+笔者使用[MUGE数据集](https://tianchi.aliyun.com/dataset/107332) 中的image caption数据，将该数据集中的训练集与验证集进行合并，作为本项目的训练集。其中图片共5.5w张，每张图片包含10个caption，最终构成55w个图文对训练数据。
 
 caption数据，jsonl格式：
 ```
