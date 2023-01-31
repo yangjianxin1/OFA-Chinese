@@ -203,7 +203,7 @@ CUDA_VISIBLE_DEVICES=0 nohup python train.py --train_args_file train_args/train_
 ### tokenizer细节
 经过阅读分析OFA官方代码，笔者得到了以下几个结论：
 - transformers版的官方代码中，实现了OFATokenizer，该tokenizer本质是一个bpe，并且仅支持处理英文。
-- 对于中文模型，官方使用bert tokenizer，并且在bert的原始词表的基础上添加了若干个特殊token，包括\<s>、\<pad>、\</s>、\<unk>、\<mask>、\<code_0>~\<code_8191>、\<bin_0>~\<bin_999>等。
+- 对于中文模型，官方使用bert tokenizer，并且在bert的原始词表的基础上添加了若干个特殊token，包括\<s>、\<pad>、\</s>、\<unk>、\<mask>、\<code_0>\~\<code_8191>、\<bin_0>\~\<bin_999>等。
 
 经过处理，笔者最终得到了一份有效的中文词表配置，存放在vocab目录下，直接使用BertTokenizer加载即可。
 
