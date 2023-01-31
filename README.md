@@ -163,33 +163,33 @@ CUDA_VISIBLE_DEVICES=0 nohup python train.py --train_args_file train_args/train_
 ## 效果展示
 下列测试图片是从电商网站中随机获取的，并且分别使用不同的模型权重，进行生成。
 
-| 图片                                                              | caption            |
-|-----------------------------------------------------------------|--------------------|
-| <img src="./images/test/earrings.jpg" width="30%" | 精致小耳钉，点缀你的美        |
-| <img src="./images/test/necklace.jpg" width="30%" >             | 精致锁骨链，点缀颈间的小性感     |
-| <img src="./images/test/berets.jpg" width="30%" >               | 复古贝雷帽，演绎秋冬新时尚      |
-| <img src="./images/test/glasses.jpg" width="30%" >              | 复古眼镜框，戴出你的潮流范儿     |
-| <img src="./images/test/manicure.jpg" width="30%" >             | 小清新手绘美甲，让你的指尖充满艺术感 |
-| <img src="./images/test/lipstick.jpg" width="30%" >             | 高颜值口红，让你的唇色更加诱人    |
-| <img src="./images/test/beauty-egg.jpg" width="30%" >           | 高颜值美妆蛋，打造精致妆容      |
-| <img src="./images/test/concealer-brush.jpg" width="30%" >      | 化妆刷选的好，妆容没烦恼       |
-| <img src="./images/test/skirt.jpg" width="30%" >                | 时尚百褶裙，让你美出新高度      |
-| <img src="./images/test/high-heel.jpg" width="30%" >            | 尖头高跟鞋，穿出优雅女人味      |
-| <img src="./images/test/socks.jpg" width="30%" >                | 加厚纯棉袜子女，冬季中筒袜学生堆堆袜 |
-| <img src="./images/test/red-dress.jpg" width="30%" >            | 吊带连衣裙，清凉一夏         |
-| <img src="./images/test/bra.jpg" width="30%" >                  | 内衣套装，给你贴心的呵护       |
-| <img src="./images/test/toy-dog.jpg" width="30%" >              | 儿童毛绒玩具，陪伴宝宝快乐成长    |
-| <img src="./images/test/apple.jpg" width="30%" >                | 烟台红富士苹果，脆甜多汁，香甜可口          |
-| <img src="./images/test/cake.jpg" width="30%" >                 | 草莓奶油蛋糕，满足你的少女心          |
-| <img src="./images/test/bread.jpg" width="30%" >                | 手撕面包，营养又美味          |
-| <img src="./images/test/biscuit.jpg" width="30%" >              | 香脆薄脆饼干，让你停不下来的美味          |
-| <img src="./images/test/sweeping-robot.jpg" width="30%" >       | 智能扫地机器人，让家更干净整洁          |
-| <img src="./images/test/iphone11.jpg" width="30%" >             |苹果11promax，性价比超高           |
-| <img src="./images/test/washing-machine.jpg" width="30%" >      | 智能洗衣机，洗出健康好生活          |
-| <img src="./images/test/power-bank.jpg" width="30%" >           | 时尚充电宝，让你的手机充电更快更安全          |
-| <img src="./images/test/shoes.jpg" width="30%" >                | 时尚运动鞋，让你运动更自信          |
-| <img src="./images/test/denim-jacket.jpg" width="30%" >         | 时尚潮流资讯，型男把妹约会夹克          |
-| <img src="./images/test/hoodie.jpg" width="30%" >               | 时尚灵感指南，型男原创街拍卫衣          |
+| 图片                                                         | caption            |
+|------------------------------------------------------------|--------------------|
+| <img src="./images/test/earrings.jpg" width="30%">         | 精致小耳钉，点缀你的美        |
+| <img src="./images/test/necklace.jpg" width="30%" >        | 精致锁骨链，点缀颈间的小性感     |
+| <img src="./images/test/berets.jpg" width="30%" >          | 复古贝雷帽，演绎秋冬新时尚      |
+| <img src="./images/test/glasses.jpg" width="30%" >         | 复古眼镜框，戴出你的潮流范儿     |
+| <img src="./images/test/manicure.jpg" width="30%" >        | 小清新手绘美甲，让你的指尖充满艺术感 |
+| <img src="./images/test/lipstick.jpg" width="30%" >        | 高颜值口红，让你的唇色更加诱人    |
+| <img src="./images/test/beauty-egg.jpg" width="30%" >      | 高颜值美妆蛋，打造精致妆容      |
+| <img src="./images/test/concealer-brush.jpg" width="30%" > | 化妆刷选的好，妆容没烦恼       |
+| <img src="./images/test/skirt.jpg" width="30%" >           | 时尚百褶裙，让你美出新高度      |
+| <img src="./images/test/high-heel.jpg" width="30%" >       | 尖头高跟鞋，穿出优雅女人味      |
+| <img src="./images/test/socks.jpg" width="30%" >           | 加厚纯棉袜子女，冬季中筒袜学生堆堆袜 |
+| <img src="./images/test/red-dress.jpg" width="30%" >       | 吊带连衣裙，清凉一夏         |
+| <img src="./images/test/bra.jpg" width="30%" >             | 内衣套装，给你贴心的呵护       |
+| <img src="./images/test/toy-dog.jpg" width="30%" >         | 儿童毛绒玩具，陪伴宝宝快乐成长    |
+| <img src="./images/test/apple.jpg" width="30%" >           | 烟台红富士苹果，脆甜多汁，香甜可口          |
+| <img src="./images/test/cake.jpg" width="30%" >            | 草莓奶油蛋糕，满足你的少女心          |
+| <img src="./images/test/bread.jpg" width="30%" >           | 手撕面包，营养又美味          |
+| <img src="./images/test/biscuit.jpg" width="30%" >         | 香脆薄脆饼干，让你停不下来的美味          |
+| <img src="./images/test/sweeping-robot.jpg" width="30%" >  | 智能扫地机器人，让家更干净整洁          |
+| <img src="./images/test/iphone11.jpg" width="30%" >        |苹果11promax，性价比超高           |
+| <img src="./images/test/washing-machine.jpg" width="30%" > | 智能洗衣机，洗出健康好生活          |
+| <img src="./images/test/power-bank.jpg" width="30%" >      | 时尚充电宝，让你的手机充电更快更安全          |
+| <img src="./images/test/shoes.jpg" width="30%" >           | 时尚运动鞋，让你运动更自信          |
+| <img src="./images/test/denim-jacket.jpg" width="30%" >    | 时尚潮流资讯，型男把妹约会夹克          |
+| <img src="./images/test/hoodie.jpg" width="30%" >          | 时尚灵感指南，型男原创街拍卫衣          |
 
 
 
