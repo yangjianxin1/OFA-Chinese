@@ -1,0 +1,7 @@
+apex==0.9.10dev
+loguru==0.6.0
+Pillow==9.4.0
+torch==1.12.0
+torchvision==0.14.1
+tqdm==4.64.0
+transformers==4.20.0
