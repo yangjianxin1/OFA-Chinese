@@ -5,14 +5,12 @@
 OFA是由阿里达摩院发布的多模态预训练模型，OFA将各种模态任务统一于seq2seq框架中。如下图所示，OFA支持的下游任务包括但不限于Image Caption、Image Classification、
 Image genaration、Language Understanding等等。
 
-![ofa-task](./images/ofa-task.png)
-
-更多关于OFA模型的介绍，可以查阅[OFA论文：Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework](https://arxiv.org/pdf/2202.03052.pdf)
+本项目旨在以Huggingface的transformers框架实现中文OFA模型的训练和推理，并且已成功在中文Image Caption任务上完成验证。关于OFA模型更详细的介绍，可以查阅[OFA论文：Unifying Architectures, Tasks, and Modalities Through a Simple Sequence-to-Sequence Learning Framework](https://arxiv.org/pdf/2202.03052.pdf)
 和[OFA官方代码库](https://github.com/OFA-Sys/OFA)
 
-### 项目动机
-本项目旨在以huggingface的transformers框架实现中文OFA模型的训练和推理，并且已成功在中文Image Caption任务上完成验证。
+![ofa-task](./images/ofa-task.png)
 
+### 项目动机
 在OFA官方代码库中，同时实现了fairseq和transformers两套框架的模型结构，并且官方同时开源了中文和英文的模型权重。基于下列原因，笔者开发了本项目：
 - 由于笔者对transformers框架更熟悉，所以希望基于transformers框架，使用域内数据对OFA模型进行finetune，但OFA的中文预训练权重只有fairseq版本，没有transformers版本。
 - 中文OFA预训练权重只有fairseq版本，如何将官方fairseq版本的预训练权重转换为transformers权重，从而使得下游任务可以基于transformers框架的中文预训练权重进行finetune。
