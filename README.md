@@ -30,11 +30,11 @@ Image genaration、Language Understanding等等。
 
 | 预训练权重                        | 简介                                                                 | 模型地址                                                |
 |------------------------------|-----------------------------------------------------------|-----------------------------------------------------|
+| YeungNLP/ofa-cn-base-muge-v2 | 笔者加载ofa-cn-base权重，使用muge数据集进行image caption任务finetune得到的权重  | https://huggingface.co/YeungNLP/ofa-cn-base-muge-v2 |
 | YeungNLP/ofa-cn-base         | 由官方OFA-CN-Base转换而来的权重              | https://huggingface.co/YeungNLP/ofa-cn-base         |
 | YeungNLP/ofa-cn-large        | 由官方OFA-CN-Large转换而来的权重          | https://huggingface.co/YeungNLP/ofa-cn-large        |
 | YeungNLP/ofa-cn-base-muge    | 由官方OFA-CN-Base-MUGE转换而来的权重       | https://huggingface.co/YeungNLP/ofa-cn-base-muge    |
 | YeungNLP/ofa-cn-large-muge   | 由官方OFA-CN-Large-MUGE转换而来的权重         | https://huggingface.co/YeungNLP/ofa-cn-large-muge   |
-| YeungNLP/ofa-cn-base-muge-v2 | 笔者加载ofa-cn-base权重，使用muge数据集进行image caption任务finetune得到的权重  | https://huggingface.co/YeungNLP/ofa-cn-base-muge-v2 |
 
 
 ## 项目细节
@@ -48,13 +48,14 @@ Image genaration、Language Understanding等等。
   - datacollator.py
   - dataset.py
 - train_args：训练参数的配置文件
-- vocab：OFA模型的tokenizer的配置目录
+- vocab：笔者转换得到的中文OFA模型的tokenizer的配置目录，本质上是BertTokenizer的配置。
 - convert_weight.py：将官方fairseq权重，转换为transformers版本。
-- generate.py：加载模型权重，进项image caption的生成脚本。
+- generate.py：加载模型权重，进行image caption的生成脚本。
 
 
 ### 数据集介绍
-笔者使用[MUGE数据集](https://tianchi.aliyun.com/dataset/107332) 中的image caption数据，将该数据集中的训练集与验证集进行合并，作为本项目的训练集。其中图片共5.5w张，每张图片包含10个caption，最终构成55w个图文对训练数据。
+笔者使用[MUGE数据集](https://tianchi.aliyun.com/dataset/107332) 中的image caption数据，数据集由两个文件组成：caption数据和图片数据，详细可查看官方说明。
+将该数据集中的训练集与验证集进行合并，作为本项目的训练集。其中图片共5.5w张，每张图片包含10个caption，最终构成55w个图文对训练数据。
 
 caption数据，jsonl格式：
 ```
@@ -202,7 +203,7 @@ CUDA_VISIBLE_DEVICES=0 nohup python train.py --train_args_file train_args/train_
 笔者下载了transformers版本的ofa-base英文权重，以及fairseq版本的中文权重。将两者的权重名称打印出来，进行一一对应，然后将fairseq的权重名称修改成transformers的权重名称。
 详细逻辑可见convert_weights.py脚本
 
-### tokenizer细节
+### Tokenizer转换细节
 经过阅读分析OFA官方代码，笔者得到了以下几个结论：
 - transformers版的官方代码中，实现了OFATokenizer，该tokenizer本质是一个bpe，并且仅支持处理英文。
 - 对于中文模型，官方使用bert tokenizer，并且在bert的原始词表的基础上添加了若干个特殊token，包括\<s>、\<pad>、\</s>、\<unk>、\<mask>、\<code_0>\~\<code_8191>、\<bin_0>\~\<bin_999>等。
