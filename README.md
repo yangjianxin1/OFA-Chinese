@@ -28,13 +28,13 @@ Image genaration、Language Understanding等等。
 ### 预模型权重分享
 官方开源的中文预训练权重详见：[官方开源的中文预训练权重](https://github.com/OFA-Sys/OFA/blob/main/checkpoints_cn.md) ,预训练权重使用方式详见下文
 
-| 预训练权重                             | 简介                                                                 | 模型地址                                                     |
-|-----------------------------------|-----------------------------------------------------------|----------------------------------------------------------|
-| YeungNLP/ofa-cn-base              | 由官方OFA-CN-Base转换而来的权重              | https://huggingface.co/YeungNLP/ofa-cn-base              |
-| YeungNLP/ofa-cn-large             | 由官方OFA-CN-Large转换而来的权重          | https://huggingface.co/YeungNLP/ofa-cn-large             |
-| YeungNLP/ofa-cn-base-muge         | 由官方OFA-CN-Base-MUGE转换而来的权重       | https://huggingface.co/YeungNLP/ofa-cn-base-muge         |
-| YeungNLP/ofa-cn-large-muge        | 由官方OFA-CN-Large-MUGE转换而来的权重         | https://huggingface.co/YeungNLP/ofa-cn-large-muge        |
-| YeungNLP/ofa-cn-base-muge-caption | 笔者加载ofa-cn-base权重，使用muge数据集进行image caption任务finetune得到的权重  | https://huggingface.co/YeungNLP/ofa-cn-base-muge-caption |
+| 预训练权重                        | 简介                                                                 | 模型地址                                                |
+|------------------------------|-----------------------------------------------------------|-----------------------------------------------------|
+| YeungNLP/ofa-cn-base         | 由官方OFA-CN-Base转换而来的权重              | https://huggingface.co/YeungNLP/ofa-cn-base         |
+| YeungNLP/ofa-cn-large        | 由官方OFA-CN-Large转换而来的权重          | https://huggingface.co/YeungNLP/ofa-cn-large        |
+| YeungNLP/ofa-cn-base-muge    | 由官方OFA-CN-Base-MUGE转换而来的权重       | https://huggingface.co/YeungNLP/ofa-cn-base-muge    |
+| YeungNLP/ofa-cn-large-muge   | 由官方OFA-CN-Large-MUGE转换而来的权重         | https://huggingface.co/YeungNLP/ofa-cn-large-muge   |
+| YeungNLP/ofa-cn-base-muge-v2 | 笔者加载ofa-cn-base权重，使用muge数据集进行image caption任务finetune得到的权重  | https://huggingface.co/YeungNLP/ofa-cn-base-muge-v2 |
 
 
 ## 项目细节
@@ -94,7 +94,7 @@ from torchvision import transforms
 from PIL import Image
 from transformers import BertTokenizerFast
 
-model_name_or_path = 'YeungNLP/ofa-cn-base-muge-caption'
+model_name_or_path = 'YeungNLP/ofa-cn-base-muge-v2'
 image_file = './images/test/lipstick.jpg'
 # 加载预训练模型权重
 model = OFAModelForCaption.from_pretrained(model_name_or_path)
@@ -161,35 +161,37 @@ CUDA_VISIBLE_DEVICES=0 nohup python train.py --train_args_file train_args/train_
 
 
 ## 效果展示
-下列测试图片均为从电商网站中随机下载的，并且测试了不同模型权重的生成效果。
+下列测试图片均为从电商网站中随机下载的，并且测试了不同模型权重的生成效果。从生成效果来看，总结如下：
+- ofa-cn-base-muge是笔者将由官方fairseq版本的OFA-CN-Base-MUGE权重转换而来的，其生成效果非常不错。证明了fairseq权重转换为transformers权重的逻辑的有效性。
+- ofa-cn-base-muge-v2是笔者使用ofa-cn-base进行finetune得到的，其效果远远优于ofa-cn-base，并且与ofa-cn-base-muge的效果旗鼓相当，证明了本项目的训练逻辑的有效性。
 
-| 图片                                          | caption            |
-|---------------------------------------------|--------------------|
-| <img src="./images/test/earrings.jpg" width="160"> | 精致小耳钉，点缀你的美        |
-| <img src="./images/test/necklace.jpg" width="160" > | 精致锁骨链，点缀颈间的小性感     |
-| <img src="./images/test/berets.jpg" width="160" > | 复古贝雷帽，演绎秋冬新时尚      |
-| <img src="./images/test/glasses.jpg" width="160" > | 复古眼镜框，戴出你的潮流范儿     |
-| <img src="./images/test/manicure.jpg" width="160" > | 小清新手绘美甲，让你的指尖充满艺术感 |
-| <img src="./images/test/lipstick.jpg" width="160" > | 高颜值口红，让你的唇色更加诱人    |
-| <img src="./images/test/beauty-egg.jpg" width="160" > | 高颜值美妆蛋，打造精致妆容      |
-| <img src="./images/test/concealer-brush.jpg" width="160" > | 化妆刷选的好，妆容没烦恼       |
-| <img src="./images/test/skirt.jpg" width="160" > | 时尚百褶裙，让你美出新高度      |
-| <img src="./images/test/high-heel.jpg" width="160" > | 尖头高跟鞋，穿出优雅女人味      |
-| <img src="./images/test/socks.jpg" width="160" > | 加厚纯棉袜子女，冬季中筒袜学生堆堆袜 |
-| <img src="./images/test/red-dress.jpg" width="160" > | 吊带连衣裙，清凉一夏         |
-| <img src="./images/test/bra.jpg" width="160" > | 内衣套装，给你贴心的呵护       |
-| <img src="./images/test/toy-dog.jpg" width="160" > | 儿童毛绒玩具，陪伴宝宝快乐成长    |
-| <img src="./images/test/apple.jpg" width="160" > | 烟台红富士苹果，脆甜多汁，香甜可口  |
-| <img src="./images/test/cake.jpg" width="160" > | 草莓奶油蛋糕，满足你的少女心     |
-| <img src="./images/test/bread.jpg" width="160" > | 手撕面包，营养又美味         |
-| <img src="./images/test/biscuit.jpg" width="160" > | 香脆薄脆饼干，让你停不下来的美味   |
-| <img src="./images/test/sweeping-robot.jpg" width="160" > | 智能扫地机器人，让家更干净整洁    |
-| <img src="./images/test/iphone11.jpg" width="160" > | 苹果11promax，性价比超高   |
-| <img src="./images/test/washing-machine.jpg" width="160" > | 智能洗衣机，洗出健康好生活      |
-| <img src="./images/test/power-bank.jpg" width="160" > | 时尚充电宝，让你的手机充电更快更安全 |
-| <img src="./images/test/shoes.jpg" width="160" > | 时尚运动鞋，让你运动更自信      |
-| <img src="./images/test/denim-jacket.jpg" width="160" > | 时尚潮流资讯，型男把妹约会夹克    |
-| <img src="./images/test/hoodie.jpg" width="160" > | 时尚灵感指南，型男原创街拍卫衣    |
+| 图片                                          | ofa-cn-base-muge-v2(ours) |  ofa-cn-base   |  ofa-cn-base-muge   |
+|---------------------------------------------|:-------------------------:|:---:|:---:|
+| <img src="./images/test/earrings.jpg" width="160"> |        精致小耳钉，点缀你的美        |  耳環,夾式耳環espritoutlet台北耳飾,耳環   |  小耳钉，让你的耳朵更有气质   |
+| <img src="./images/test/necklace.jpg" width="160" > |      精致锁骨链，点缀颈间的小性感       |  项链项链设计矢量矢量图素材第1页   |  精致锁骨链，彰显女性优雅气质   |
+| <img src="./images/test/berets.jpg" width="160" > |       复古贝雷帽，演绎秋冬新时尚       |  帽子女秋冬新款韩版时尚百搭羊毛呢贝雷   |  针织开衫，温暖又时髦   |
+| <img src="./images/test/glasses.jpg" width="160" > |      复古眼镜框，戴出你的潮流范儿       |  戴眼镜的女生头像_www.qqya.com   |  黑色毛呢外套，时髦又显瘦   |
+| <img src="./images/test/manicure.jpg" width="160" > |    小清新手绘美甲，让你的指尖充满艺术感     |  美甲图片大全可爱图片_www.qqya.com   |  美甲指甲油，让你的指甲更美丽   |
+| <img src="./images/test/lipstick.jpg" width="160" > |      高颜值口红，让你的唇色更加诱人      |  香奈儿chanel香奈兒香水香氛系列香水禮盒香   |  高颜值口红，让你爱不释手   |
+| <img src="./images/test/beauty-egg.jpg" width="160" > |       高颜值美妆蛋，打造精致妆容       |  日本canmake井田蜜粉饼控油定妆持久遮瑕控油   |  高颜值美妆蛋，轻松打造气质女神   |
+| <img src="./images/test/concealer-brush.jpg" width="160" > |       化妆刷选的好，妆容没烦恼        |  日本muji无印良品润唇膏保湿滋润唇部护理   |  秋冬季节，你需要一款好看的眼影盘   |
+| <img src="./images/test/skirt.jpg" width="160" > |       时尚百褶裙，让你美出新高度       |  百褶裙半身裙女秋冬2020新款韩版高腰a字   |  尚百搭的半身裙，让你轻松穿出女神范   |
+| <img src="./images/test/high-heel.jpg" width="160" > |       尖头高跟鞋，穿出优雅女人味       |  shoesirizachristianlouboutin   |  时尚尖头高跟鞋，穿出优雅女人味   |
+| <img src="./images/test/socks.jpg" width="160" > |    加厚纯棉袜子女，冬季中筒袜学生堆堆袜     |  加厚羊绒袜子女中筒袜冬季加绒保暖棉袜   |  加厚羊绒袜，保暖又舒适   |
+| <img src="./images/test/red-dress.jpg" width="160" > |        吊带连衣裙，清凉一夏         |  日系小清新甜美可爱少女系学院风小红裙   |  一字肩连衣裙，穿出女神范儿   |
+| <img src="./images/test/bra.jpg" width="160" > |       内衣套装，给你贴心的呵护        |  红色背景上的女性手拿着一个红色的大象   |  红色婚庆用品，让你的婚礼更有仪式感   |
+| <img src="./images/test/toy-dog.jpg" width="160" > |      儿童毛绒玩具，陪伴宝宝快乐成长      |  【震撼精品百貨】mickymouse_米奇米妮~   |  可爱卡通毛绒玩具，萌化你的少女心   |
+| <img src="./images/test/apple.jpg" width="160" > |     烟台红富士苹果，脆甜多汁，香甜可口     |  山东烟台栖霞红富士苹果新鲜水果当季整   |  新鲜水果，让你爱不释手   |
+| <img src="./images/test/cake.jpg" width="160" > |      草莓奶油蛋糕，满足你的少女心       |  草莓奶油蛋糕图片   |  美味的生日蛋糕，让你爱不释手   |
+| <img src="./images/test/bread.jpg" width="160" > |        手撕面包，营养又美味         |  面包包装盒设计   |  好吃到停不下来的手撕面包，你吃过吗？   |
+| <img src="./images/test/biscuit.jpg" width="160" > |     香脆薄脆饼干，让你停不下来的美味      |  韩香海苔味薄脆加薯片休闲零食小吃膨化   |  美味零食，让你爱不释手   |
+| <img src="./images/test/sweeping-robot.jpg" width="160" > |      智能扫地机器人，让家更干净整洁      |  小米米家扫地机器人智能家用全自动吸尘   |  智能扫地机器人，让生活更有仪式感   |
+| <img src="./images/test/iphone11.jpg" width="160" > |     苹果11promax，性价比超高      |  苹果11手机壳iphone11promax保护套硅胶全包边   |  高颜值手机，你值得拥有   |
+| <img src="./images/test/washing-machine.jpg" width="160" > |       智能洗衣机，洗出健康好生活       |  洗衣机图标隔离在白色背景上。3d渲染。   |  智能洗衣机，让你的生活更有仪式感   |
+| <img src="./images/test/power-bank.jpg" width="160" > |    时尚充电宝，让你的手机充电更快更安全     |  小米移动电源10000毫安超大容量充电宝   |  高颜值充电宝，让你的手机充电更快   |
+| <img src="./images/test/shoes.jpg" width="160" > |       时尚运动鞋，让你运动更自信       |  特步专柜款男子夏季跑鞋17新品气垫减震   |  舒适跑步鞋，让你轻松跑出好身材   |
+| <img src="./images/test/denim-jacket.jpg" width="160" > |      时尚潮流资讯，型男把妹约会夹克      |  男童外套春秋季新款韩版儿童夹克中大童   |  时尚潮流，型男原创休闲衬衫   |
+| <img src="./images/test/hoodie.jpg" width="160" > |      时尚灵感指南，型男原创街拍卫衣      |  男士长袖t恤秋季新款韩版潮流宽松圆领   |  时尚灵感指南，型男原创潮流卫衣   |
 
 
 
